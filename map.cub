@@ -1,11 +1,16 @@
-R 1920 1080
+//Except for the map, each type of information from an element can be separated by one or more spaces???
+
 NO ./path_to_north_texture
 SO ./path_to_south_texture
 
 WE ./path_to_west_texture
 EA ./path_to_east_texture
 
-F 225,20,0 //R,G,B colors in range [0,255]: 0, 255, 255
-C 220,100,0 //R,G,B colors in range [0,255]: 0, 255, 255
+F 225,20,0
+C 220,100,0 
 
-//map always end
+1111111111
+1000000001
+1000N00001
+1000000001
+1111111111
