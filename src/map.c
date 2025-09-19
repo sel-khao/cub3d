@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 08:52:41 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/08/28 12:41:14 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/09/19 18:45:02 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	initial(t_config *config)
 	config->ceiling = 0;
 }
 
-int		count_line(char *file, t_config *config)
+int		count_line(char *file)
 {
 	int		i;
 	int		fd;
@@ -40,7 +40,7 @@ int		count_line(char *file, t_config *config)
 		if (!(ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
 			|| ft_strncmp(line, "EA ", 3) == 0 || line[0] == '\n'
 			|| ft_strncmp(line, "WE ", 3) == 0
-			|| ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C", 2) == 0))
+			|| ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0))
 			i++;
 		free(line);
 	}
@@ -52,7 +52,7 @@ void	fill_map(char *file, t_config *config)
 {
 	int		len;
 
-	len = count_line(file, config);
+	len = count_line(file);
 	config->map = malloc(sizeof(char *) * (len + 1));
 	if (!config->map)
 		return ;

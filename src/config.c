@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 10:47:06 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/08/28 12:42:21 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/09/19 18:49:05 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,31 @@ int parse_rgb(char *line)
 		str++;
 	split = ft_split(str, ',');
 	if (!split || !split[0] || !split[1] || !split[2] || split[3])
-	return (-1);
+		return (-1);
 	r = ft_atoi(split[0]);
 	g = ft_atoi(split[1]);
 	b = ft_atoi(split[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
-		free(split);//make free **
+		ft_free(split);
 		return (-1);
 	}
-	free(split);//make free **
+	ft_free(split);
 	return ((r << 16) | (g << 8) | b);
+}
+
+void	ft_free(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return ;
 }
 
 //line = "NO ./path/to/texture.xpm\n"
@@ -67,7 +81,7 @@ char	*extract_path(char *line)
 	i = 3;
 	path = malloc(sizeof(char) * (ft_strlen(line) - 3 + 1));
 	if (!path)
-	return (NULL);
+		return (NULL);
 	while (line[i] && line[i] != '\n')
 	{
 		path[j] = line[i];
@@ -82,9 +96,12 @@ int	configure(char *file, t_config *config)
 {
 	int		fd;
 	char	*line;
+	int		i;
 
+	i = 0;
 	if (check_open(file) < 0)
 		return (write(2, "invalid file\n", 14), -1);
+	fill_map(file, config);
 	fd = open(file, O_RDONLY);
 	while ((line = get_next_line(fd)))
 	{
@@ -100,9 +117,10 @@ int	configure(char *file, t_config *config)
 			config->floor = parse_rgb(line);
 		else if (ft_strncmp(line, "C ", 2) == 0)
 			config->ceiling = parse_rgb(line);
-		else
+		else if (line[0] && line[0] != '\n')
 		{
-			//fillmap
+			config->map[i] = ft_strdup(line);
+			i++;
 		}
 		free(line);
 	}

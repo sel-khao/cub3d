@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:28:01 by plichota          #+#    #+#             */
-/*   Updated: 2025/08/28 12:26:10 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/09/19 18:44:56 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ typedef struct s_config
 }	t_config;
 
 char	*extract_path(char *line);
-
-
+void	initial(t_config *config);
+void	ft_free(char **str);
 int		parse_rgb(char *line);
 int		check_open(char *file);
 int		configure(char *file, t_config *config);
-int		count_line(char *file, t_config *config);
+int		count_line(char *file);
+void	fill_map(char *file, t_config *config);
 
 #endif
