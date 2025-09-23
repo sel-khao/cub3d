@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 10:47:06 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/09/19 18:49:05 by sara             ###   ########.fr       */
+/*   Updated: 2025/09/23 15:16:06 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,6 @@ int parse_rgb(char *line)
 	}
 	ft_free(split);
 	return ((r << 16) | (g << 8) | b);
-}
-
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	return ;
 }
 
 //line = "NO ./path/to/texture.xpm\n"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 08:52:41 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/09/19 18:45:02 by sara             ###   ########.fr       */
+/*   Updated: 2025/09/23 18:35:36 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	initial(t_config *config)
 {
 	config->x = 0;
 	config->y = 0;
+	config->h = 0;
+	config->l = 0;
 	config->map = NULL;
 	config->no = NULL;
 	config->so = NULL;
@@ -25,7 +27,7 @@ void	initial(t_config *config)
 	config->ceiling = 0;
 }
 
-int		count_line(char *file)
+int		count_line(char *file, t_config *config)
 {
 	int		i;
 	int		fd;
@@ -35,6 +37,8 @@ int		count_line(char *file)
 	if (check_open(file) < 0)
 		return (write(2, "invalid file\n", 14), -1);
 	fd = open(file, O_RDONLY);
+/* 	config->l = ft_strlen(line) -1;
+	config->h = 0; u gotta fill the map, 3x3 is minimum */
 	while ((line = get_next_line(fd)))
 	{
 		if (!(ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
@@ -45,14 +49,14 @@ int		count_line(char *file)
 		free(line);
 	}
 	close (fd);
-	return (i); 
+	return (i);
 }
 
 void	fill_map(char *file, t_config *config)
 {
-	int		len;
+	int	len;
 
-	len = count_line(file);
+	len = count_line(file, config);
 	config->map = malloc(sizeof(char *) * (len + 1));
 	if (!config->map)
 		return ;
