@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:03:42 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/09/23 16:47:07 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/10/02 09:34:52 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ int	sign(t_config *config)
 		j = 0;
 		while (config->map[i][j])
 		{
-			if (config->map[i][j] == 'N' || config->map[i][j] == '0' || \
-				config->map[i][j] == 'S' || config->map[i][j] == '1' || \
-				config->map[i][j] == 'E' || config->map[i][j] == ' ' || \
-				config->map[i][j] == 'W')
-				j++;
-			else
+			if (config->map[i][j] != 'N' && config->map[i][j] != '0' && \
+				config->map[i][j] != 'S' && config->map[i][j] != '1' && \
+				config->map[i][j] != 'E' && config->map[i][j] != ' ' && \
+				config->map[i][j] != 'W')
 				return (-1);
+			j++;
 		}
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 char	*remove_newline(char *line)
@@ -48,11 +47,27 @@ char	*remove_newline(char *line)
 	return (line);
 }
 
-int	set_hl(t_config *config)
+void	set_hl(t_config *config)
 {
+	size_t	i;
+	size_t	max;
+	size_t	curr;
 	
+	i = 0;
+	max = 0;
+	while (config->map[i])
+	{
+		curr = ft_strlen(config->map[i]);
+		if (curr > max)
+			max = curr;
+		i++;
+	}
+	config->h = i;
+	config->l = max;
 }
 
+//checks only edges
+//each line got different lenght, not fzed
 int	check_wall(t_config *config)
 {
 	size_t	i;
@@ -60,7 +75,7 @@ int	check_wall(t_config *config)
 	size_t	len;
 
 	i = 0;
-	len = ft_strlen(config->map[0]) - 2;
+	len = ft_strlen(config->map[0]) - 2;//no
 	while (config->map[i])
 	{
 		j = 0;

@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:15:37 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/09/23 18:43:56 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:11:18 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	dest_win(t_config *config)
 	if (config->map)
 		ft_free(config->map);
 	if (config->map)
-		ft_free(config-> map);
-	if (config->map)
 	{
 		mlx_destroy_display(config->map);
 		free(config->map);
@@ -49,6 +47,14 @@ int	close_win(t_config *config)
 	dest_img(config);
 	exit(1);
 	return (0);
+}
+
+void free_config(t_config *config)
+{
+	int i;
+	
+	i = 0;
+	if (!config)
 }
 
 void	ft_free(char **mxt)

@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:28:01 by plichota          #+#    #+#             */
-/*   Updated: 2025/09/23 18:39:09 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/10/02 09:22:42 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_config
 }	t_config;
 
 
+int		check_player(int p);
+int		find_player(t_config *config);
+void	set_hl(t_config *config);
 int		check_wall(t_config *config);
 int		sign(t_config *config);
 char	*remove_newline(char *line);

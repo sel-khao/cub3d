@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 10:47:06 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/09/23 15:16:06 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:01:09 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,25 +91,54 @@ int	configure(char *file, t_config *config)
 	fd = open(file, O_RDONLY);
 	while ((line = get_next_line(fd)))
 	{
+		if (extract_path(line) == -1 || extract_path(line) == NULL)
+			return (1);
 		if (ft_strncmp(line, "NO ", 3) == 0)
+		{
+			if (config->no != NULL)
+				return (3);//close fd, free line, free map, free paths
 			config->no = extract_path(line);
+		}
 		else if (ft_strncmp(line, "SO ", 3) == 0)
+		{
+			if (config->so != NULL)
+				return (3);//duplicate error
 			config->so = extract_path(line);
+		}
 		else if (ft_strncmp(line, "WE ", 3) == 0)
+		{
+			if (config->we != NULL)
+				return (3);
 			config->we = extract_path(line);
+		}
 		else if (ft_strncmp(line, "EA ", 3) == 0)
-			config->ea = extract_path(line);
+		{
+			if (config->ea != NULL)
+				return (3);
+			config->ea = extract_path(line);	
+		}
 		else if (ft_strncmp(line, "F ", 2) == 0)
+		{
+			if (config->floor != -1)
+				return (3);
 			config->floor = parse_rgb(line);
+		}
 		else if (ft_strncmp(line, "C ", 2) == 0)
+		{
+			if (config->ceiling != -1)
+				return (3);
 			config->ceiling = parse_rgb(line);
+		}	
 		else if (line[0] && line[0] != '\n')
 		{
-			config->map[i] = ft_strdup(line);
+			config->map[i] = remove_newline(ft_strdup(line));
 			i++;
 		}
 		free(line);
 	}
+	if (config->ceiling == -1 || config->floor == -1 || config->no == NULL
+		|| config->we == NULL || config->ea == NULL || config->so == NULL)//0,0,0,0 is valid tho
+		return (4);//non existing error
 	close (fd);
 	return (0);
 }

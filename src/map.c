@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 08:52:41 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/09/23 18:35:36 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:36:55 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	initial(t_config *config)
 	config->so = NULL;
 	config->ea = NULL;
 	config->we = NULL;
-	config->floor = 0;
-	config->ceiling = 0;
+	config->floor = -1;
+	config->ceiling = -1;//or booleano to check it has floor and cieling. valid (black: 0,0,0)
 }
 
 int		count_line(char *file, t_config *config)
@@ -38,7 +38,7 @@ int		count_line(char *file, t_config *config)
 		return (write(2, "invalid file\n", 14), -1);
 	fd = open(file, O_RDONLY);
 /* 	config->l = ft_strlen(line) -1;
-	config->h = 0; u gotta fill the map, 3x3 is minimum */
+	config->h = 0; //u gotta fill the map, 3x3 is minimum */
 	while ((line = get_next_line(fd)))
 	{
 		if (!(ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
