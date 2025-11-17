@@ -22,7 +22,7 @@ HEADERS_DIR = include
 LIBFT_HEADERS_DIR = $(LIBFT_DIR)/include
 
 # Links
-MINILIBX_URL = https://cdn.intra.42.fr/document/document/36820/minilibx-linux.tgz
+#MINILIBX_URL = https://cdn.intra.42.fr/document/document/36820/minilibx-linux.tgz
 
 # Compiler
 CC = cc
@@ -32,13 +32,21 @@ CFLAGS = -Wall -Werror -Wextra -g -I$(HEADERS_DIR) -I$(SRC_DIR) -I$(LIBFT_DIR) -
 LDFLAGS = -L$(LIBFT_DIR) -lft -L$(MINILIBX_DIR) -lmlx -lX11 -lXext -lm
 
 # Sources
-SRCS =	$(SRC_DIR)/map.c \
-		$(SRC_DIR)/main.c \
-		$(SRC_DIR)/free.c \
-		$(SRC_DIR)/config.c \
-		$(SRC_DIR)/player.c \
-		$(SRC_DIR)/valiadte.c \
-		
+SRCS =	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/filename_parsing.c \
+		$(SRC_DIR)/path_parsing.c \
+		$(SRC_DIR)/program_utils.c \
+		$(SRC_DIR)/map.c \
+ 		$(SRC_DIR)/map_utils.c \
+		$(SRC_DIR)/map_parsing.c \
+		$(SRC_DIR)/cleaning.c \
+		$(SRC_DIR)/window.c \
+		$(SRC_DIR)/hooks.c \
+		$(SRC_DIR)/player_parsing.c \
+		$(SRC_DIR)/player_utils.c \
+		$(SRC_DIR)/engine.c
+# 		$(SRC_DIR)/textures.c \
+# 		$(SRC_DIR)/program_utils.c \
 
 LIBFT = $(LIBFT_DIR)/libft.a
 MINILIBX = $(MINILIBX_DIR)/libmlx.a

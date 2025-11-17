@@ -1,49 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player_parsing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plichota <plichota@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 09:01:17 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/10/02 09:21:28 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:15:37 by plichota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_player(int p)
-{
-	if (p != 1)
-		return (-1);
-	return (0);
-}
-
-int find_player(t_config *config)
+// if player found set pos and dir, returns 1
+// if player not found return -1
+int	find_player(t_window *win)
 {
 	int	x;
 	int	y;
 	int	p;
 
+	if (!win || !win->map)
+		exit_program(win, "Map not found", 1);
 	p = 0;
-	if (!config || !config->map)
-		return (-1);
 	y = 0;
-	while (config->map[y])
+	while (win->map[y])
 	{
 		x = 0;
-		while (config->map[y][x])
+		while (win->map[y][x])
 		{
-			if (config->map[y][x] == 'N' || config->map[y][x] == 'W' ||
-				config->map[y][x] == 'S' || config->map[y][x] == 'E')
+			if (win->map[y][x] == 'N' || win->map[y][x] == 'W' ||
+				win->map[y][x] == 'S' || win->map[y][x] == 'E')
 			{
-				config->x = x;
-				config->y = y;
+				set_player_position(win, (double)y + 0.5, (double)x + 0.5);
+				set_player_direction(win, win->map[y][x]);
 				p++;
 			}
 			x++;
 		}
 		y++;
 	}
-	return (check_player(p));
+	return (p);
 }

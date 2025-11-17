@@ -6,30 +6,34 @@
 /*   By: sel-khao <sel-khao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 08:36:59 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/10/27 17:18:28 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:24:49 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <stdio.h>
 
-//make it a sepaate functio for errors + message
 int	main(int argc, char **argv)
 {
-	t_config config;
+	t_window	win;
+	char		*filename;
 
-	initial(&config);
-	if (argc == 2)
-	{
-		if (configure(argv[1], &config) == -1)
-			return (1);
-		set_hl(&config);
-		if (sign(&config) == -1)
-			return (1);
-		if (find_player(&config) == -1)
-			return (1);
-		if (check_wall(&config) == -1)
-			return (1);
-	}
+	win = (t_window){0};
+	if (argc != 2)
+		return (ft_printf("Wrong usage: ./cub3d <map.cub>\n"), 1);
+	// FILENAME
+	filename = argv[1];
+	if (!is_valid_file(filename))
+		return (1);
+	// PATHS
+	parse_paths(&win, filename);
+	check_and_allocate_map(&win, filename);
+	if (!win.map || !*win.map)
+		exit_program(&win, "Map not allocated properly", 1); // if fill fails
+	parse_map(&win);
+	init_window(&win);
+	mlx_key_hook(win.win, key_press, &win);
+	mlx_hook(win.win, 17, 0, close_window, &win);
+	mlx_loop(win.mlx);
+	mlx_loop_hook(win.mlx, engine, &win);
 	return (0);
 }
